@@ -7,25 +7,25 @@ import AddCommentIcon from "@mui/icons-material/AddComment";
 import { Link } from "react-router-dom";
 
 function Sidebar({ closeMenu, setChat }) {
-  const isMobile = useMediaQuery("(max-width:900px)");
-  const [mode, setMode] = useContext(ThemeContext);
+  const isMobileView = useMediaQuery("(max-width:900px)");
+  const [themeMode, toggleThemeMode] = useContext(ThemeContext);
 
   return (
     <Stack direction="column" spacing={2}>
-      {isMobile ? (
+      {isMobileView && (
         <Button
           endIcon={<CloseIcon />}
           onClick={closeMenu}
           sx={{
-            color: mode == "light" ? "primary.dark" : "text.primary",
+            color: themeMode === "light" ? "primary.dark" : "text.primary",
             justifyContent: "flex-end",
           }}
         >
           Close
         </Button>
-      ) : null}
+      )}
 
-      <Link to={"/"} style={{ textDecoration: "none" }}>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -33,7 +33,7 @@ function Sidebar({ closeMenu, setChat }) {
           padding={2}
           sx={{
             bgcolor: "primary.main",
-            "&:hover ": {
+            "&:hover": {
               bgcolor: "primary.bg",
             },
           }}
@@ -42,16 +42,16 @@ function Sidebar({ closeMenu, setChat }) {
             closeMenu();
           }}
         >
-          <Stack direction="row" spacing={2} alignItems={"center"}>
+          <Stack direction="row" spacing={2} alignItems="center">
             <Box
               component="img"
               src={icon}
-              borderRadius={"50%"}
+              borderRadius="50%"
               width={40}
               height={40}
-            ></Box>
+            />
 
-            <Typography variant="h5" fontSize={20} color={"text.primary"}>
+            <Typography variant="h5" fontSize={20} color="text.primary">
               New Chat
             </Typography>
           </Stack>
@@ -62,7 +62,7 @@ function Sidebar({ closeMenu, setChat }) {
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Link to={"/history"}>
+        <Link to="/history">
           <Button
             variant="contained"
             size="large"

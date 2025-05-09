@@ -2,35 +2,28 @@ import { Box, Select, MenuItem, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 function ChatFilter({ allChats, setFilterChats }) {
-  const [option, setOption] = useState("All Ratings");
+  const [selectedRating, setSelectedRating] = useState("All Ratings");
 
   useEffect(() => {
-    if (option == "All Ratings") {
+    if (selectedRating === "All Ratings") {
       setFilterChats(allChats);
-      return;
+    } else {
+      const filteredChats = allChats.filter((chat) =>
+        chat.chat.some((message) => message.rating === selectedRating)
+      );
+      setFilterChats(filteredChats);
     }
-
-    const filtered = allChats.filter((item) => {
-      let found = false;
-      item.chat.forEach((ch) => {
-        if (ch.rating == option) {
-          found = true;
-        }
-      });
-      return found;
-    });
-    setFilterChats(filtered);
-  }, [option]);
+  }, [selectedRating, allChats, setFilterChats]);
 
   return (
     <Box mb={3}>
       <Typography fontSize={12} mb={0.5}>
-        Filter by rating
+        Filter by Rating
       </Typography>
       <Select
         size="small"
-        value={option}
-        onChange={(e) => setOption(e.target.value)}
+        value={selectedRating}
+        onChange={(e) => setSelectedRating(e.target.value)}
       >
         <MenuItem value="All Ratings">All Ratings</MenuItem>
         <MenuItem value={1}>1 Star</MenuItem>

@@ -7,21 +7,21 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 
 function Navbar() {
-  const isMobile = useMediaQuery("(max-width:900px)");
-  const [mode, setMode] = useContext(ThemeContext);
-  const { handleMobileMenu } = useOutletContext();
+  const isMobileView = useMediaQuery("(max-width:900px)");
+  const [themeMode, toggleThemeMode] = useContext(ThemeContext);
+  const { toggleMobileMenu } = useOutletContext();
 
   return (
     <Stack
-      component={"header"}
-      direction={"row"}
-      justifyContent={"space-between"}
-      alignItems={"center"}
+      component="header"
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
       padding={3}
     >
-      <Stack direction={"row"} spacing={2} alignItems={"center"}>
-        {isMobile ? (
-          <MenuIcon onClick={() => handleMobileMenu((prev) => !prev)} />
+      <Stack direction="row" spacing={2} alignItems="center">
+        {isMobileView ? (
+          <MenuIcon onClick={() => toggleMobileMenu((prev) => !prev)} />
         ) : null}
 
         <Link to="/" style={{ textDecoration: "none" }}>
@@ -31,18 +31,18 @@ function Navbar() {
         </Link>
       </Stack>
 
-      <Stack direction={"row"} spacing={0.2} alignItems={"center"}>
-        <Typography fontSize={10} textTransform={"capitalize"}>
-          {mode}
+      {/* <Stack direction="row" spacing={0.2} alignItems="center">
+        <Typography fontSize={10} textTransform="capitalize">
+          {themeMode}
         </Typography>
         <IconButton
           onClick={() =>
-            setMode((prev) => (prev === "light" ? "dark" : "light"))
+            toggleThemeMode((prev) => (prev === "light" ? "dark" : "light"))
           }
         >
-          {mode == "light" ? <Brightness4Icon /> : <Brightness7Icon />}
+          {themeMode === "light" ? <Brightness4Icon /> : <Brightness7Icon />}
         </IconButton>
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 }

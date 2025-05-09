@@ -12,24 +12,20 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 import CloseIcon from "@mui/icons-material/Close";
 
 function FeedbackModal({ open, onClose, chatId, updateChat }) {
-  const [input, setInput] = useState("");
+  const [feedbackText, setFeedbackText] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    updateChat((prev) => {
-      return prev.map((item) => {
-        if (item.id === chatId) {
-          return { ...item, feedback: input };
-        } else {
-          return { ...item };
-        }
-      });
-    });
-    setInput("");
+  const handleFeedbackSubmit = (event) => {
+    event.preventDefault();
+    updateChat((prevChats) =>
+      prevChats.map((chat) =>
+        chat.id === chatId ? { ...chat, feedback: feedbackText } : chat
+      )
+    );
+    setFeedbackText("");
     onClose();
   };
 
-  const style = {
+  const modalStyle = {
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -44,12 +40,12 @@ function FeedbackModal({ open, onClose, chatId, updateChat }) {
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={style}>
-        <Stack direction={"row"} justifyContent={"space-between"}>
-          <Stack direction={"row"} spacing={2} alignItems={"center"}>
+      <Box sx={modalStyle}>
+        <Stack direction="row" justifyContent="space-between">
+          <Stack direction="row" spacing={2} alignItems="center">
             <FeedbackIcon />
-            <Typography variant="h2" component={"h2"}>
-              Provide Additional Feedback
+            <Typography variant="h2" component="h2">
+              Provide Feedback
             </Typography>
           </Stack>
           <IconButton onClick={onClose}>
@@ -58,8 +54,8 @@ function FeedbackModal({ open, onClose, chatId, updateChat }) {
         </Stack>
 
         <Box
-          component={"form"}
-          onSubmit={handleSubmit}
+          component="form"
+          onSubmit={handleFeedbackSubmit}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -70,8 +66,8 @@ function FeedbackModal({ open, onClose, chatId, updateChat }) {
           <TextField
             multiline
             rows={6}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={feedbackText}
+            onChange={(e) => setFeedbackText(e.target.value)}
             sx={{ width: "100%" }}
             required
           />

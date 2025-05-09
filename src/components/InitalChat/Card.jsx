@@ -3,13 +3,13 @@ import { Stack, Typography } from "@mui/material";
 function Card({ heading, subtext, generateResponse }) {
   return (
     <Stack
-      justifyContent={"center"}
-      alignItems={"flex-start"}
-      p={2}
+      justifyContent="center"
+      alignItems="flex-start"
+      padding={2}
       spacing={2}
       borderRadius={1}
-      boxShadow={"0 0 12px rgba(0,0,0,0.1)"}
-      bgcolor={"primary.light"}
+      boxShadow="0 0 12px rgba(0,0,0,0.1)"
+      bgcolor="primary.light"
       sx={{
         "&:hover .MuiIconButton-root": {
           opacity: 1,
@@ -18,7 +18,7 @@ function Card({ heading, subtext, generateResponse }) {
         "&:hover": {
           bgcolor: "primary.bglight",
         },
-        transition: "background 200ms ease",
+        transition: "background-color 0.2s ease-in-out",
       }}
       onClick={() => generateResponse(heading)}
     >
